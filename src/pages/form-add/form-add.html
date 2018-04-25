@@ -2,87 +2,95 @@
 
   <ion-navbar>
     <ion-title>เพิ่มข้อมูล</ion-title>
+    <ion-buttons end>
+        <button ion-button  (click)="addData()">
+          <ion-icon name="plus"></ion-icon>Save
+        </button>
+      </ion-buttons>
   </ion-navbar>
-
+ 
 </ion-header>
 
 
-<ion-content>
-  <div><h3>เลขที่บันทึก : {{senumber}} </h3></div>
+<ion-content padding>
+  <div><h2>เลขที่บันทึก : {{senumber}} </h2></div>
   <ion-list>
     <ion-item>
       <ion-label>น้ำหนัก</ion-label>
-      <ion-select [(ngModel)]="tweight" (ionChange)="calpercent()"  interface="action-sheet">
+      <ion-select [(ngModel)]="field_data[0].tweight" (ionChange)="calpercent()"  interface="action-sheet">
         <ion-option value="0" selected>0</ion-option>
         <ion-option *ngFor="let items of tweightchoice" [value]="items.val">{{items.stext}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>ทะลายดิบ</ion-label>
-      <ion-select [(ngModel)]="traw" (ionChange)="getpercent(this.traw,'1')" interface="action-sheet">
+      <ion-select [(ngModel)]="field_data[0].traw" (ionChange)="getpercent(this.field_data[0].traw,'1')" interface="action-sheet">
         <ion-option value="0" selected>0 %</ion-option>
         <ion-option *ngFor="let item of percentchoinc" [value]="item">{{item}} %</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>ทะลายกึ่งสุก</ion-label>
-      <ion-select [(ngModel)]="tripe" (ionChange)="getpercent(this.tripe,'1')" interface="action-sheet">
+      <ion-select [(ngModel)]="field_data[0].tripe" (ionChange)="getpercent(this.field_data[0].tripe,'1')" interface="action-sheet">
         <ion-option value="0" selected>0 %</ion-option>
         <ion-option *ngFor="let item of percentchoinc" [value]="item">{{item}} %</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>ทะลายเปล่า</ion-label>
-      <ion-select [(ngModel)]="tblank" (ionChange)="getpercent(this.tblank,'1')" interface="action-sheet">
+      <ion-select [(ngModel)]="field_data[0].tblank" (ionChange)="getpercent(this.field_data[0].tblank,'1')" interface="action-sheet">
           <ion-option value="0" selected>0 %</ion-option>
         <ion-option *ngFor="let item of percentchoinc" [value]="item">{{item}} %</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>ทะลายไม่สมบูรณ์</ion-label>
-      <ion-select [(ngModel)]="tincomplete" (ionChange)="getpercent(this.tincomplete,'1')" interface="action-sheet">
+      <ion-select [(ngModel)]="field_data[0].tincomplete" (ionChange)="getpercent(this.field_data[0].tincomplete,'1')" interface="action-sheet">
           <ion-option value="0" selected>0 %</ion-option>
         <ion-option *ngFor="let item of percentchoinc" [value]="item">{{item}} %</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>ทะลายก้านยาว</ion-label>
-      <ion-select [(ngModel)]="tlong" (ionChange)="getpercent(this.tlong,'2')" interface="action-sheet">
+      <ion-select [(ngModel)]="field_data[0].tlong" (ionChange)="getpercent(this.field_data[0].tlong,'2')" interface="action-sheet">
           <ion-option value="0" selected>0 %</ion-option>
         <ion-option *ngFor="let item of percentchoinc" [value]="item">{{item}} %</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>ทะลายเก่า</ion-label>
-      <ion-select [(ngModel)]="told" (ionChange)="getpercent(this.told,'2')" interface="action-sheet">
+      <ion-select [(ngModel)]="field_data[0].told" (ionChange)="getpercent(this.field_data[0].told,'2')" interface="action-sheet">
           <ion-option value="0" selected>0 %</ion-option>
         <ion-option *ngFor="let item of percentchoinc" [value]="item">{{item}} %</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>ทะลายสกปรก</ion-label>
-      <ion-select [(ngModel)]="tdirty" (ionChange)="getpercent(this.tdirty,'2')" interface="action-sheet">
+      <ion-select [(ngModel)]="field_data[0].tdirty" (ionChange)="getpercent(this.field_data[0].tdirty,'2')" interface="action-sheet">
           <ion-option value="0" selected>0 %</ion-option>
         <ion-option *ngFor="let item of percentchoinc" [value]="item">{{item}} %</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>ทะลายพันธ์ดูร่าปาล์ม</ion-label>
-      <ion-select [(ngModel)]="tdula" (ionChange)="getpercent(this.tdula,'2')" interface="action-sheet">
+      <ion-select [(ngModel)]="field_data[0].tdula" (ionChange)="getpercent(this.field_data[0].tdula,'2')" interface="action-sheet">
           <ion-option value="0" selected>0 %</ion-option>
         <ion-option *ngFor="let item of percentchoinc" [value]="item">{{item}} %</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>ทะลายมีลักษณะสดและมีรอยรถน้ำ</ion-label>
-      <ion-select [(ngModel)]="twater" (ionChange)="getpercent(this.twater,'2')" interface="action-sheet">
+      <ion-select [(ngModel)]="field_data[0].twater" (ionChange)="getpercent(this.field_data[0].twater,'2')" interface="action-sheet">
           <ion-option [value]="0" selected>0 %</ion-option>
           <ion-option *ngFor="let item of twaterchoice" [value]="item.val">{{item.stext}} %</ion-option>
       </ion-select>
     </ion-item>
   </ion-list>
-  <div style="text-align:center;">
-    <h1> % น้ำมันปาล์ม</h1>
-    <h2>{{pcc}} %</h2>
-  </div>
+  <ion-footer>
+    <ion-toolbar>
+      <ion-title style="color:#F00;">% น้ำมันปาล์ม : {{pcc}} %</ion-title>
+    </ion-toolbar>
+     
+  </ion-footer>
+  
 </ion-content>

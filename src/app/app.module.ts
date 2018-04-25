@@ -8,6 +8,7 @@ import {SQLite} from '@ionic-native/sqlite';
 import { Toast } from '@ionic-native/toast';
 
 import { MyApp } from './app.component';
+import { TablepalmProvider } from '../providers/tablepalm/tablepalm';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { MyApp } from './app.component';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SQLite,
-    Toast
+    Toast,
+    TablepalmProvider
   ]
 })
 export class AppModule {}

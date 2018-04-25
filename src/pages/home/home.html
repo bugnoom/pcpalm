@@ -15,8 +15,20 @@
 <ion-content>
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
   <ion-list>
-      <ion-item>
-        TEst    
-      </ion-item>
+      <ion-item-sliding *ngFor="let rows of items; let i=index">
+        <ion-item nopadding>
+          <p>
+            <span>{{rows.createdate}} : {{rows.val}}</span>
+          </p>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="primary" (click)="editData(rows.rowid)">
+            <ion-icon name="paper"></ion-icon>
+          </button>
+          <button ion-button color="danger" (click)="deleteData(rows.rowid)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
   </ion-list>
 </ion-content>

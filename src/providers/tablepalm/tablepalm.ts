@@ -15,6 +15,7 @@ export class TablepalmProvider {
 
   loading :any;
   chk : boolean = false;
+  maxnumber : number = 0;
 
   constructor( public loadingCtrl : LoadingController, public sqlite : SQLite,public tost : Toast) {
     console.log('Hello TablepalmProvider Provider');
@@ -213,7 +214,6 @@ export class TablepalmProvider {
   }
 
   savedatadetail(serial,name,value,percent) {
-     let d  = new Date().toISOString;
     this.sqlite.create({
       name: "pcpalm.db",
       location: "default"
@@ -235,6 +235,20 @@ export class TablepalmProvider {
           }
         )
       })
+  }
+
+  generateAutoNumber(){
+    //get last record from database
+    this.sqlite.create({
+      name:"pcpalm.db",
+      location: "default"
+    }).then((db:SQLiteObject)=>{
+        db.executeSql('Select * FROM pcpalm_list ORDER BY list_id DESC LIMIT 1',{})
+          .then(res=>{ console.log(res);this.maxnumber = res.rows.item(0).list_id + 1 })
+          .catch(err=>{console.log("select gen :",err)})
+    })
+      .catch(err=>{console.log("gen Number :",err)})
+
   }
 
 }

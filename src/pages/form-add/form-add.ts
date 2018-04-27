@@ -50,6 +50,10 @@ export class FormAddPage {
     for (let i = 1; i < 100; i++) {
       this.percentchoinc.push(i);
     }
+    this.tablepalm.generateAutoNumber();
+    let str = "" + this.tablepalm.maxnumber
+    let pad = "0000"
+    this.senumber  = pad.substring(0, pad.length - str.length) + str
     this.calpercent();
 
   }

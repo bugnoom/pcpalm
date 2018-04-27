@@ -46,8 +46,8 @@ export class HomePage {
       location: 'default'
     }).then((db: SQLiteObject) => {
       db.transaction(function(tx){
-        tx.executeSql('CREATE TABLE IF NOT EXISTS pcpalm_list(list_id INTERGER PRIMARY KEY, id TEXT, createdate DATETIME DEFAULT CURRENT_TIMESTAMP)', {});
-        tx.executeSql('CREATE TABLE IF NOT EXISTS pcpalm_detail(rowid INTERGER PRIMARY KEY, id TEXT, param TEXT, val TEXT,percent TEXT, createdate DATETIME DEFAULT CURRENT_TIMESTAMP)', {})
+        tx.executeSql('CREATE TABLE IF NOT EXISTS pcpalm_list(list_id INTERGER PRIMARY KEY AUTOINCREMENT, id TEXT, createdate DATETIME DEFAULT CURRENT_TIMESTAMP)', {});
+        tx.executeSql('CREATE TABLE IF NOT EXISTS pcpalm_detail(rowid INTERGER PRIMARY KEY AUTOINCREMENT, id TEXT, param TEXT, val TEXT,percent TEXT, createdate DATETIME DEFAULT CURRENT_TIMESTAMP)', {})
       })
       db.executeSql("Select * from pcpalm_list  ORDER BY createdate DESC",{})
       .then(res =>{

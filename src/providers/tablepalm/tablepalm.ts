@@ -213,13 +213,12 @@ export class TablepalmProvider {
     )
   }
 
-  savedatadetail(serial,name,value,percent) {
+  savedatelist(serial){
     this.sqlite.create({
       name: "pcpalm.db",
       location: "default"
     }).then((db: SQLiteObject) => {
       db.transaction(function(tx){
-        tx.executeSql('INSERT INTO pcpalm_detail (id,param,val,percent) VALUES (?,?,?,?)',[serial,name,value,percent]);
         tx.executeSql("INSERT INTO pcpalm_list (id) VALUES (?)",[serial]);
       }).then(res =>{
           this.success(res);
@@ -237,13 +236,40 @@ export class TablepalmProvider {
       })
   }
 
+  savedatadetail(serial,param,name,value,percent) {
+    this.sqlite.create({
+      name: "pcpalm.db",
+      location: "default"
+    }).then((db: SQLiteObject) => {
+      db.transaction(function(tx){
+        tx.executeSql('INSERT INTO pcpalm_detail (id,param,name,val,percent) VALUES (?,?,?,?)',[serial,param,name,value,percent]);
+      }).then(res =>{
+          this.success(res);
+      }).catch(err =>{
+          this.error(err);
+      })
+    })
+      .catch(e => {
+        console.log(e);
+        this.tost.show(e, '5000', 'center').subscribe(
+          restost => {
+            console.log(restost);
+          }
+        )
+      })
+  }
+
+  deletedata(id){
+    console.log('Delete data');
+  }
+
   generateAutoNumber(){
     //get last record from database
     this.sqlite.create({
       name:"pcpalm.db",
       location: "default"
     }).then((db:SQLiteObject)=>{
-        db.executeSql('Select * FROM pcpalm_list ORDER BY list_id DESC LIMIT 1',{})
+        db.executeSql('Select * FROM pcpalm_list ORDER BY list_id DESC',{})
           .then(res=>{ console.log(res);this.maxnumber = res.rows.item(0).list_id + 1 })
           .catch(err=>{console.log("select gen :",err)})
     })

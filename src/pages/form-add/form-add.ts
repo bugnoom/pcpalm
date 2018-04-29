@@ -50,16 +50,17 @@ export class FormAddPage {
     for (let i = 1; i < 100; i++) {
       this.percentchoinc.push(i);
     }
-    this.tablepalm.generateAutoNumber();
-    let str = "" + this.tablepalm.maxnumber
-    let pad = "0000"
-    this.senumber  = pad.substring(0, pad.length - str.length) + str
-    this.calpercent();
+   
 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FormAddPage');
+    this.tablepalm.generateAutoNumber();
+    let str = "" + this.tablepalm.maxnumber
+    let pad = "0000"
+    this.senumber  = pad.substring(0, pad.length - str.length) + str
+    this.calpercent();
   }
 
   getpercent(v, obj) {
@@ -90,19 +91,19 @@ export class FormAddPage {
   }
 
   addData() {
-    
+    this.tablepalm.savedatelist(this.senumber);
     console.log(this.field_data);
     for (let x of this.field_data) {
-      this.tablepalm.savedatadetail(this.senumber,'tweight',this.tablepalm.getpercent(x.tweight),x.tweight)
-      this.tablepalm.savedatadetail(this.senumber,'traw',this.tablepalm.getpercent(x.traw),x.traw)
-      this.tablepalm.savedatadetail(this.senumber,'tripe',this.tablepalm.getpercent(x.tripe),x.tripe)
-      this.tablepalm.savedatadetail(this.senumber,'tblank',this.tablepalm.getpercent(x.tblank),x.tblank)
-      this.tablepalm.savedatadetail(this.senumber,'tincomplete',this.tablepalm.getpercent(x.tincomplete),x.tincomplete)
-      this.tablepalm.savedatadetail(this.senumber,'tlong',this.tablepalm.getpercent(x.tlong),x.tlong)
-      this.tablepalm.savedatadetail(this.senumber,'told',this.tablepalm.getpercent(x.told),x.told)
-      this.tablepalm.savedatadetail(this.senumber,'tdirty',this.tablepalm.getpercent(x.tdirty),x.tdirty)
-      this.tablepalm.savedatadetail(this.senumber,'tdula',this.tablepalm.getpercent(x.tdula),x.tdula)
-      this.tablepalm.savedatadetail(this.senumber,'twater',this.tablepalm.getpercent(x.twater),x.twater)
+      this.tablepalm.savedatadetail(this.senumber,'tweight','น้ำหนัก',this.tablepalm.getpercent(x.tweight),x.tweight)
+      this.tablepalm.savedatadetail(this.senumber,'traw','ทะลายดิบ',this.tablepalm.getpercent(x.traw),x.traw)
+      this.tablepalm.savedatadetail(this.senumber,'tripe','ทะลายกึ่งสุก',this.tablepalm.getpercent(x.tripe),x.tripe)
+      this.tablepalm.savedatadetail(this.senumber,'tblank','ทะลายเปล่า',this.tablepalm.getpercent(x.tblank),x.tblank)
+      this.tablepalm.savedatadetail(this.senumber,'tincomplete','ทะลายไม่สมบูรณ์',this.tablepalm.getpercent(x.tincomplete),x.tincomplete)
+      this.tablepalm.savedatadetail(this.senumber,'tlong','ทะลายก้านยาว',this.tablepalm.getpercent(x.tlong),x.tlong)
+      this.tablepalm.savedatadetail(this.senumber,'told','ทะลายเก่า',this.tablepalm.getpercent(x.told),x.told)
+      this.tablepalm.savedatadetail(this.senumber,'tdirty','ทะลายสกปรก',this.tablepalm.getpercent(x.tdirty),x.tdirty)
+      this.tablepalm.savedatadetail(this.senumber,'tdula','ทะลายพันธ์ดูร่าปาล์ม',this.tablepalm.getpercent(x.tdula),x.tdula)
+      this.tablepalm.savedatadetail(this.senumber,'twater','ทะลายมีลักษณะสดและมีรอยรถน้ำ',this.tablepalm.getpercent(x.twater),x.twater)
     }
     if(this.tablepalm.chk == true){
       this.navCtrl.goToRoot;

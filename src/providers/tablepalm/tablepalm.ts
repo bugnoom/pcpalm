@@ -14,7 +14,7 @@ import { Toast } from '@ionic-native/toast';
 export class TablepalmProvider {
 
   loading :any;
-  chk : boolean = false;
+  chk : boolean;
   maxnumber : number = 0;
 
   constructor( public loadingCtrl : LoadingController, public sqlite : SQLite,public tost : Toast) {
@@ -195,8 +195,18 @@ export class TablepalmProvider {
 
   }
   
-  success(result){
-    this.tost.show('Data saved', '5000', 'center').subscribe(
+
+  connectdb(){
+    let db = this.sqlite.create({
+      name: "pcpalm.db",
+      location: "default"
+    });
+    return db;
+  }
+
+
+  success(result,txt){
+    this.tost.show(txt, '5000', 'center').subscribe(
       restost => {
         this.chk = true;
       }
@@ -208,22 +218,21 @@ export class TablepalmProvider {
       restost => {
         console.log(restost);
         this.chk= false;
-        return true;
       }
     )
   }
 
-  savedatelist(serial){
-    this.sqlite.create({
-      name: "pcpalm.db",
-      location: "default"
-    }).then((db: SQLiteObject) => {
+  savedatelist(serial,totalsum){
+    this.connectdb() 
+    .then((db: SQLiteObject) => {
       db.transaction(function(tx){
-        tx.executeSql("INSERT INTO pcpalm_list (id) VALUES (?)",[serial]);
+        tx.executeSql("INSERT INTO pcpalm_list (id,totalsum) VALUES (?,?)",[serial,totalsum]);
       }).then(res =>{
-          this.success(res);
+          this.success(res,"Data saved");
+          return true
       }).catch(err =>{
           this.error(err);
+          return false
       })
     })
       .catch(e => {
@@ -237,14 +246,11 @@ export class TablepalmProvider {
   }
 
   savedatadetail(serial,param,name,value,percent) {
-    this.sqlite.create({
-      name: "pcpalm.db",
-      location: "default"
-    }).then((db: SQLiteObject) => {
+    this.connectdb().then((db: SQLiteObject) => {
       db.transaction(function(tx){
-        tx.executeSql('INSERT INTO pcpalm_detail (id,param,name,val,percent) VALUES (?,?,?,?)',[serial,param,name,value,percent]);
+        tx.executeSql('INSERT INTO pcpalm_detail (id,param,name,val,percent) VALUES (?,?,?,?,?)',[serial,param,name,value,percent]);
       }).then(res =>{
-          this.success(res);
+          this.success(res,"Data saved");
       }).catch(err =>{
           this.error(err);
       })
@@ -261,17 +267,27 @@ export class TablepalmProvider {
 
   deletedata(id){
     console.log('Delete data');
+    this.connectdb().then((db:SQLiteObject)=>{
+      db.transaction(function(tx){
+        tx.executeSql("Delete  From pcpalm_detail Where id = ?",[id]);
+        tx.executeSql("Delete From pcpalm_list Where id = ?",[id]);
+      }).then(res =>{
+       this.success(res,"Delete success");
+       return true;
+      }).catch(err =>{
+        this.error(err);
+        return false;
+        
+      })
+    })
   }
 
   generateAutoNumber(){
     //get last record from database
-    this.sqlite.create({
-      name:"pcpalm.db",
-      location: "default"
-    }).then((db:SQLiteObject)=>{
+   this.connectdb().then((db:SQLiteObject)=>{
         db.executeSql('Select * FROM pcpalm_list ORDER BY list_id DESC',{})
-          .then(res=>{ console.log(res);this.maxnumber = res.rows.item(0).list_id + 1 })
-          .catch(err=>{console.log("select gen :",err)})
+          .then(res=>{ console.log(res);this.maxnumber = parseInt(res.rows.item(0).id) + 1 })
+          .catch(err=>{console.log("select gen :",err); this.maxnumber=parseInt('1');})
     })
       .catch(err=>{console.log("gen Number :",err)})
 

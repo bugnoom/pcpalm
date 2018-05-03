@@ -2,7 +2,7 @@ import { TablepalmProvider } from './../../providers/tablepalm/tablepalm';
 import { Toast } from '@ionic-native/toast';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+
 
 
 
@@ -25,7 +25,7 @@ export class FormAddPage {
     tdula: 0,
     twater: 0,
   }]
-  pcc: number = 100;
+  pcc: number = 100.00;
   senumber: string = '0';
 
   sum1: number = 0;
@@ -46,20 +46,31 @@ export class FormAddPage {
     { "stext": "80", "val": "80" },
   ]
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private sqlite: SQLite, private tost: Toast, private tablepalm: TablepalmProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,  private tost: Toast, private tablepalm: TablepalmProvider) {
     for (let i = 1; i < 100; i++) {
       this.percentchoinc.push(i);
     }
-   
+    this.nextid();
+    this.calpercent();
 
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad FormAddPage');
+  nextid(){
     this.tablepalm.generateAutoNumber();
     let str = "" + this.tablepalm.maxnumber
     let pad = "0000"
     this.senumber  = pad.substring(0, pad.length - str.length) + str
+    
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad FormAddPage');
+   this.nextid();
+    this.calpercent();
+  }
+
+  ionViewDidEnter(){
+    this.nextid();
     this.calpercent();
   }
 
@@ -87,11 +98,11 @@ export class FormAddPage {
     let w = this.field_data[0].tweight
     let summery = w - (this.sum1 - this.sum2);
 
-    this.pcc = summery;
+    this.pcc = parseFloat(summery.toFixed(2));
   }
 
   addData() {
-    this.tablepalm.savedatelist(this.senumber);
+    this.tablepalm.savedatelist(this.senumber,this.pcc);
     console.log(this.field_data);
     for (let x of this.field_data) {
       this.tablepalm.savedatadetail(this.senumber,'tweight','น้ำหนัก',this.tablepalm.getpercent(x.tweight),x.tweight)
@@ -105,9 +116,9 @@ export class FormAddPage {
       this.tablepalm.savedatadetail(this.senumber,'tdula','ทะลายพันธ์ดูร่าปาล์ม',this.tablepalm.getpercent(x.tdula),x.tdula)
       this.tablepalm.savedatadetail(this.senumber,'twater','ทะลายมีลักษณะสดและมีรอยรถน้ำ',this.tablepalm.getpercent(x.twater),x.twater)
     }
-    if(this.tablepalm.chk == true){
-      this.navCtrl.goToRoot;
-    }
+   
+      this.navCtrl.setRoot('HomePage');
+    
   }
 
   autonumber(){

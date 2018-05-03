@@ -4,8 +4,11 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
-import {SQLite} from '@ionic-native/sqlite';
+import { SQLite } from '@ionic-native/sqlite';
 import { Toast } from '@ionic-native/toast';
+
+import { File } from '@ionic-native/file';
+import { FileOpener } from '@ionic-native/file-opener';
 
 import { MyApp } from './app.component';
 import { TablepalmProvider } from '../providers/tablepalm/tablepalm';
@@ -30,6 +33,8 @@ import { TablepalmProvider } from '../providers/tablepalm/tablepalm';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SQLite,
     Toast,
+    File,
+    FileOpener,
     TablepalmProvider
   ]
 })

@@ -1,10 +1,10 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Home</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>ระบบบันทึกข้อมูล % ปาล์ม</ion-title>
     <ion-buttons end>
         <button ion-button  (click)="openadd()">
-          <ion-icon name="plus"></ion-icon>ADD
+          <ion-icon name="add"></ion-icon> เพิ่มใหม่
         </button>
       </ion-buttons>
   </ion-navbar>
@@ -14,17 +14,18 @@
 
 <ion-content>
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
   <ion-list>
       <ion-item-sliding *ngFor="let rows of items; let i=index">
-        <ion-item nopadding>
+        <button ion-item nopadding (click)="openviewer(rows.rowid)" >
           <p>
-            <span>{{rows.rowid}} : {{rows.val}}</span>
+            <span>เลขที่ {{rows.rowid}} | วันที่ {{rows.val.split(' ')[0]}} | เวลา {{rows.val.split(' ')[1]}}</span>
           </p>
-        </ion-item>
+        </button>
         <ion-item-options side="right">
-          <button ion-button color="primary" (click)="editData(rows.rowid)">
-            <ion-icon name="paper"></ion-icon>
-          </button>
           <button ion-button color="danger" (click)="deleteData(rows.rowid)">
             <ion-icon name="trash"></ion-icon>
           </button>

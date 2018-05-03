@@ -5,16 +5,15 @@ import { TablepalmProvider } from '../../providers/tablepalm/tablepalm';
 
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
 pdfMake.fonts={
   THSarabunNew:{
     normal: 'THSarabunNew.ttf',
-    bold: 'THSarabunNew-Bold.ttf',
-    italics: 'THSarabunNew-Italic.ttf',
-    bolditalics: 'THSarabunNew-BoldItalic.ttf'
+    bold: 'THSarabunNew Bold.ttf',
+    italics: 'THSarabunNew Italic.ttf',
+    bolditalics: 'THSarabunNew BoldItalic.ttf'
   }
 }
-
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import { File } from '@ionic-native/file';
 import { FileOpener } from '@ionic-native/file-opener';
 
@@ -138,7 +137,8 @@ export class HomePage {
           console.log(res);
           listdatas = {
             id : res.rows.item(0).id,
-            dt : res.rows.item(0).createdate
+            dt : res.rows.item(0).createdate,
+            totalsum : res.rows.item(0).totalsum
           };
 
           //select Detail
@@ -178,7 +178,7 @@ export class HomePage {
           layout : 'lightHorizontalLines',
           table : {
             headerRows : 1,
-            widths: ['50','50'],
+            widths: ['50%','50%'],
             body:[
               [ 'รายการ ',' จำนวน % '],
               [ detaildata.rows.item(0).name, detaildata.rows.item(0).percent],

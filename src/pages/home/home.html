@@ -3,7 +3,7 @@
   <ion-navbar color="primary">
     <ion-title>ระบบบันทึกข้อมูล % ปาล์ม</ion-title>
     <ion-buttons end>
-        <button ion-button  (click)="openadd()">
+        <button ion-button icon-left  (click)="openadd()">
           <ion-icon name="add"></ion-icon> เพิ่มใหม่
         </button>
       </ion-buttons>
@@ -12,7 +12,7 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content class="bg">
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
 
     <ion-refresher (ionRefresh)="doRefresh($event)">

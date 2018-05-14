@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.bugnoom.pcpalm" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>pcpalm</name>
-    <description>An awesome Ionic/Cordova app.</description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
+    <name>SPOIC PALM GRADING</name>
+    <description>SPOIC PALM GRADING</description>
+    <author email="noom.itsolution@gmail.com" href="http://www.google.com/search?q=SPOIC+PALM+GRADING">SPOIC PALM GRADING Team</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />

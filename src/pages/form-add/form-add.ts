@@ -74,8 +74,9 @@ export class FormAddPage {
     this.calpercent();
   }
 
-  getpercent(v, obj) {
-    v = this.tablepalm.getpercent(v);
+  getpercent(v, obj,n) { // v = value, obj = Calurate Group, n = name of yield
+    
+    v = this.tablepalm.getpercent(v,n);
     let resut = parseFloat(v);
     if (obj == '1') {
       this.sumgroup1(resut);
@@ -105,16 +106,16 @@ export class FormAddPage {
     this.tablepalm.savedatelist(this.senumber,this.pcc);
     console.log(this.field_data);
     for (let x of this.field_data) {
-      this.tablepalm.savedatadetail(this.senumber,'tweight','น้ำหนัก',this.tablepalm.getpercent(x.tweight),x.tweight)
-      this.tablepalm.savedatadetail(this.senumber,'traw','ทะลายดิบ',this.tablepalm.getpercent(x.traw),x.traw)
-      this.tablepalm.savedatadetail(this.senumber,'tripe','ทะลายกึ่งสุก',this.tablepalm.getpercent(x.tripe),x.tripe)
-      this.tablepalm.savedatadetail(this.senumber,'tblank','ทะลายเปล่า',this.tablepalm.getpercent(x.tblank),x.tblank)
-      this.tablepalm.savedatadetail(this.senumber,'tincomplete','ทะลายไม่สมบูรณ์',this.tablepalm.getpercent(x.tincomplete),x.tincomplete)
-      this.tablepalm.savedatadetail(this.senumber,'tlong','ทะลายก้านยาว',this.tablepalm.getpercent(x.tlong),x.tlong)
-      this.tablepalm.savedatadetail(this.senumber,'told','ทะลายเก่า',this.tablepalm.getpercent(x.told),x.told)
-      this.tablepalm.savedatadetail(this.senumber,'tdirty','ทะลายสกปรก',this.tablepalm.getpercent(x.tdirty),x.tdirty)
-      this.tablepalm.savedatadetail(this.senumber,'tdula','ทะลายพันธ์ดูร่าปาล์ม',this.tablepalm.getpercent(x.tdula),x.tdula)
-      this.tablepalm.savedatadetail(this.senumber,'twater','ทะลายมีลักษณะสดและมีรอยรถน้ำ',this.tablepalm.getpercent(x.twater),x.twater)
+      this.tablepalm.savedatadetail(this.senumber,'tweight','น้ำหนัก',this.tablepalm.getpercent(x.tweight,''),x.tweight)
+      this.tablepalm.savedatadetail(this.senumber,'traw','ทะลายดิบ',this.tablepalm.getpercent(x.traw,'traw'),x.traw)
+      this.tablepalm.savedatadetail(this.senumber,'tripe','ทะลายกึ่งสุก',this.tablepalm.getpercent(x.tripe,'tripe'),x.tripe)
+      this.tablepalm.savedatadetail(this.senumber,'tblank','ทะลายเปล่า',this.tablepalm.getpercent(x.tblank,'tblank'),x.tblank)
+      this.tablepalm.savedatadetail(this.senumber,'tincomplete','ทะลายไม่สมบูรณ์',this.tablepalm.getpercent(x.tincomplete,'tincomplete'),x.tincomplete)
+      this.tablepalm.savedatadetail(this.senumber,'tlong','ทะลายก้านยาว',this.tablepalm.getpercent(x.tlong,'tlong'),x.tlong)
+      this.tablepalm.savedatadetail(this.senumber,'told','ทะลายเก่า',this.tablepalm.getpercent(x.told,'told'),x.told)
+      this.tablepalm.savedatadetail(this.senumber,'tdirty','ทะลายสกปรก',this.tablepalm.getpercent(x.tdirty,'tdirty'),x.tdirty)
+      this.tablepalm.savedatadetail(this.senumber,'tdula','ทะลายพันธ์ดูร่าปาล์ม',this.tablepalm.getpercent(x.tdula,'tdula'),x.tdula)
+      this.tablepalm.savedatadetail(this.senumber,'twater','ทะลายมีลักษณะสดและมีรอยรถน้ำ',this.tablepalm.getpercent(x.twater,'twater'),x.twater)
     }
    
       this.navCtrl.setRoot('HomePage');

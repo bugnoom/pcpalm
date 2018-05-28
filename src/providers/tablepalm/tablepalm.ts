@@ -44,11 +44,11 @@ export class TablepalmProvider {
       } else {
         finds =  s[1];
         ten = s[0];
-        console.log(finds + "  " + ten);
+        
       }
       let tablepalm = [];
       let val = 0.00;
-  
+      console.log("percent : ",finds + "  " + ten);
       switch(typecal){
         case "traw":
           tablepalm = this.traw_table();
@@ -1294,11 +1294,11 @@ tdula_table(){
     )
   }
 
-  savedatelist(serial,totalsum){
+  savedatelist(serial,totalsum,desc){
     this.connectdb() 
     .then((db: SQLiteObject) => {
       db.transaction(function(tx){
-        tx.executeSql("INSERT INTO pcpalm_list (id,totalsum) VALUES (?,?)",[serial,totalsum]);
+        tx.executeSql("INSERT INTO pcpalm_list (id,totalsum,textdesc) VALUES (?,?,?)",[serial,totalsum,desc]);
       }).then(res =>{
           this.success(res,"Data saved");
           return true

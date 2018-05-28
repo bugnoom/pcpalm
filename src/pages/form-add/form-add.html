@@ -3,7 +3,7 @@
   <ion-navbar color="primary">
     <ion-title>เพิ่มข้อมูล</ion-title>
     <ion-buttons end>
-        <button ion-button  (click)="addData()">
+        <button ion-button  (click)="addData('')">
           <ion-icon name="plus"></ion-icon>Save
         </button>
       </ion-buttons>
@@ -17,9 +17,10 @@
   <ion-list>
     <ion-item>
       <ion-label>น้ำหนัก</ion-label>
-      <ion-select [(ngModel)]="field_data[0].tweight" (ionChange)="calpercent()"  interface="action-sheet">
+      <ion-select [(ngModel)]="field_data[0].tweight" (ionChange)="changeweight()"  interface="action-sheet">
         <ion-option value="0" selected>0</ion-option>
         <ion-option *ngFor="let items of tweightchoice" [value]="items.val">{{items.stext}}</ion-option>
+        <ion-option name="customyield" value="-1">ระบุ % Yield</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>

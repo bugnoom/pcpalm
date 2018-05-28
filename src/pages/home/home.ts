@@ -73,7 +73,7 @@ export class HomePage {
   getData() {
     this.table.connectdb().then((db: SQLiteObject) => {
       db.transaction(function(tx){
-        tx.executeSql('CREATE TABLE IF NOT EXISTS pcpalm_list(list_id INTEGER PRIMARY KEY AUTOINCREMENT, id TEXT,totalsum NUMBER, createdate DATETIME DEFAULT CURRENT_TIMESTAMP)', {});
+        tx.executeSql('CREATE TABLE IF NOT EXISTS pcpalm_list(list_id INTEGER PRIMARY KEY AUTOINCREMENT, id TEXT,totalsum NUMBER, textdesc TEXT,createdate DATETIME DEFAULT CURRENT_TIMESTAMP)', {});
         tx.executeSql('CREATE TABLE IF NOT EXISTS pcpalm_detail(rowid INTEGER PRIMARY KEY AUTOINCREMENT, id TEXT, param TEXT,name TEXT, val TEXT,percent TEXT, createdate DATETIME DEFAULT CURRENT_TIMESTAMP)', {})
       })
       db.executeSql("Select * from pcpalm_list  ORDER BY createdate DESC",{})
@@ -138,7 +138,8 @@ export class HomePage {
           listdatas = {
             id : res.rows.item(0).id,
             dt : res.rows.item(0).createdate,
-            totalsum : res.rows.item(0).totalsum
+            totalsum : res.rows.item(0).totalsum,
+            desc : res.rows.item(0).textdesc
           };
 
           //select Detail
@@ -195,7 +196,9 @@ export class HomePage {
             ]
           }
         },
-        {text : " % ทั้งหมด "+listdata.totalsum,style:'header'}
+        {text : " % ทั้งหมด "+listdata.totalsum,style:'header'},
+        {text : "" + listdata.desc, style : 'headAlert', alignment:"center"}
+        
       ],
       defaultStyle:{
         font : 'THSarabunNew'
@@ -205,7 +208,13 @@ export class HomePage {
           bold : true,
           fontSize: 20,
           alignment:'center'
-        }
+        },
+          headAlert : {
+            bold : true,
+            fontSize : 24,
+            Color : '#f00'
+          }
+        
       },
       pageSize: 'A4',
       PageOrientation : 'portrait'

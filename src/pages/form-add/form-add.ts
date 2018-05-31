@@ -31,11 +31,11 @@ export class FormAddPage {
   percentchoinc = [];
 
   tweightchoice = [
-    { "stext": "น้อยกว่า 5 กก.", "val": "16.5" },
-    { "stext": "6-7 กก.", "val": "17.5" },
-    { "stext": "8-10 กก.", "val": "18.5" },
-    { "stext": "11-25 กก.", "val": "20.5" },
-    { "stext": "26 กก. ขึ้นไป", "val": "19.5" }
+    { "stext": "น้อยกว่า 5 กก.", "val": "16.5" , selected : false},
+    { "stext": "6-7 กก.", "val": "17.5", selected : false },
+    { "stext": "8-10 กก.", "val": "18.5" , selected : false},
+    { "stext": "11-25 กก.", "val": "20.5", selected : false },
+    { "stext": "26 กก. ขึ้นไป", "val": "19.5", selected : false }
   ]
 
   twaterchoice = [
@@ -104,7 +104,7 @@ export class FormAddPage {
           promp.present();
 
         }
-
+        this.calpercentobject(v, obj, gp)
         break;
       case "tdirty":
         if (v >= 29) { //ตั้งแต่ 30 ขึ้นไป
@@ -130,8 +130,8 @@ export class FormAddPage {
             ]
           });
           promp.present();
-
         }
+        this.calpercentobject(v, obj, gp)
         break;
       default:
         this.calpercentobject(v, obj, gp)
@@ -164,12 +164,15 @@ export class FormAddPage {
             handler: data => {
               console.log('Saved clicked',data['% Yield']);
               this.field_data[0].tweight = data['% Yield'];
+              this.tweightchoice.push({"stext": data['% Yield']+" %", "val": data['% Yield'], selected : true })
               this.calpercent();
             }
           }
         ]
       });
       prompt.present();
+    }else{
+      this.calpercent();
     }
    
   }
@@ -196,7 +199,7 @@ export class FormAddPage {
   calpercent() {
     console.log(this.field_data[0].tweight, 'Weight');
     let w = this.field_data[0].tweight
-    let summery = w - (this.sum1 - this.sum2);
+    let summery = (w - this.sum1) - this.sum2;
 
     this.pcc = parseFloat(summery.toFixed(2));
   }

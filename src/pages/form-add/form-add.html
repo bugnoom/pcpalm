@@ -16,7 +16,7 @@
   <div><h2>เลขที่บันทึก : {{senumber}} </h2></div>
   <ion-list>
     <ion-item>
-      <ion-label>น้ำหนัก</ion-label>
+      <ion-label>น้ำหนักทะลายปาล์มเฉลี่ย</ion-label>
       <ion-select [(ngModel)]="field_data[0].tweight" (ionChange)="changeweight()"  interface="action-sheet">
         <ion-option value="0" selected>0</ion-option>
         <ion-option *ngFor="let items of tweightchoice" [value]="items.val">{{items.stext}}</ion-option>

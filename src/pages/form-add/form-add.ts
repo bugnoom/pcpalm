@@ -149,7 +149,7 @@ export class FormAddPage {
           {
             name: '% Yield',
             placeholder: '% Yield',
-            type : 'tel'
+            type : 'number'
           },
         ],
         buttons: [

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, Platform } from 'ionic-angular';
 
 /**
  * Generated class for the InputformPage page.
@@ -15,8 +15,14 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 })
 export class InputformPage {
 
-  yield : number = 0
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl : ViewController) {
+  yield : number = 0;
+  isIos : Boolean = false;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl : ViewController, public plaform : Platform) {
+    if(this.plaform.is('ios')){
+      this.isIos = true;
+    }else{
+      this.isIos = false;
+    }
   }
 
   ionViewDidLoad() {

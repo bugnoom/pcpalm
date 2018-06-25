@@ -17,9 +17,13 @@
 
 
 <ion-content padding>
-    <ion-item>
+    <ion-item *ngIf="isIos" >
         <ion-label color="primary" stacked>ระบุ % Yield</ion-label>
-        <ion-input type="text"  [(ngModel)]="yield" pattern="[0-9]*" decimal="true" value="0" placeholder="Input % Yield">  </ion-input>
+        <ion-input  type="text"  [(ngModel)]="yield" pattern="[0-9]*" decimal="true"  value="0" placeholder="Input % Yield">  </ion-input>
       </ion-item>
+      <ion-item *ngIf="!isIos" >
+          <ion-label color="primary" stacked>ระบุ % Yield</ion-label>
+          <ion-input  type="number"  [(ngModel)]="yield" pattern="[0-9]*" decimal="true"  value="0" placeholder="Input % Yield">  </ion-input>
+        </ion-item>
   
 </ion-content>

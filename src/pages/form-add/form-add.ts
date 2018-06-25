@@ -1,7 +1,8 @@
+//import { InputformPage } from './../inputform/inputform';
 import { TablepalmProvider } from './../../providers/tablepalm/tablepalm';
 import { Toast } from '@ionic-native/toast';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage,Platform, NavController, NavParams, AlertController, ModalController, ViewController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -46,7 +47,7 @@ export class FormAddPage {
   textcustom = 'ระบุ % Yield';
   err_txt = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private tost: Toast, private tablepalm: TablepalmProvider, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private tost: Toast, private tablepalm: TablepalmProvider, public alertCtrl: AlertController, public modal : ModalController) {
     for (let i = 1; i < 100; i++) {
       this.percentchoinc.push(i);
     }
@@ -141,7 +142,27 @@ export class FormAddPage {
 
   changeweight() {
     if (this.field_data[0].tweight == -1) {
-      let prompt = this.alertCtrl.create({
+      let prompt = this.modal.create('InputformPage');
+
+      prompt.onDidDismiss(data=>{
+        console.log("return is : ",data);
+        console.log('Saved clicked',data);
+        if(data == 0 || data == ""){
+          let zero = 0;
+             this.field_data[0].tweight = 0;
+             // this.tweightchoice.push({"stext": zero +" %", "val": zero, selected : true });
+        }else{
+          this.field_data[0].tweight = data;
+          this.tweightchoice.push({"stext": data +" %", "val": data, selected : true });
+        }
+              
+              this.calpercent();
+      })
+
+      prompt.present();
+
+
+     /*  let prompt = this.alertCtrl.create({
         enableBackdropDismiss : false,
         title: 'กำหนด % Yield',
         message: "ระบุ % Yield โดยตรงตามต้องการ",
@@ -170,7 +191,7 @@ export class FormAddPage {
           }
         ]
       });
-      prompt.present();
+      prompt.present(); */
     }else{
       this.calpercent();
     }
@@ -236,3 +257,4 @@ export class FormAddPage {
 
 
 }
+

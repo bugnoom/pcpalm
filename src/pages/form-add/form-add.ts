@@ -26,8 +26,11 @@ export class FormAddPage {
   pcc: number = 100.00;
   senumber: string = '0';
 
-  sum1: number = 0;
-  sum2: number = 0;
+  sum1: any = 0;
+  sum2: any = 0;
+
+  summarygroup1 : any = 0.00 ;
+ summarygroup2 : any = 0.00 ;
 
   percentchoinc = [];
 
@@ -201,26 +204,22 @@ export class FormAddPage {
   calpercentobject(value, object, group) {
     value = this.tablepalm.getpercent(value, object);
     let resut = parseFloat(value);
-    if (group == '1') {
-      this.sumgroup1(resut);
-    } else {
-      this.sumgroup2(resut);
-    }
     this.calpercent();
   }
 
-  sumgroup1(v) {
-    this.sum1 += v
-  }
-
-  sumgroup2(t) {
-    this.sum2 += t
-  }
+ 
 
   calpercent() {
-    console.log(this.field_data[0].tweight, 'Weight');
-    let w = this.field_data[0].tweight
-    let summery = (w - this.sum1) - this.sum2;
+    //console.log(this.field_data[0].tweight, 'Weight');
+    let w = this.field_data[0].tweight;
+    this.sum1 = this.tablepalm.getpercent(this.field_data[0].traw, 'traw')+ this.tablepalm.getpercent(this.field_data[0].tripe, 'tripe') + this.tablepalm.getpercent(this.field_data[0].tblank, 'tblank') +this.tablepalm.getpercent(this.field_data[0].tincomplete, 'tincomplete');
+
+    console.log("sum1 is :",this.sum1);
+
+    this.sum2 = this.tablepalm.getpercent(this.field_data[0].tlong, 'tlong') +this.tablepalm.getpercent(this.field_data[0].told, 'told')+ this.tablepalm.getpercent(this.field_data[0].tdirty, 'tdirty')+ this.tablepalm.getpercent(this.field_data[0].tdula, 'tdula')+ this.tablepalm.getpercent(this.field_data[0].twater, 'twater');
+
+    console.log("sum2 is :",this.sum2);
+    let summery = (w - parseFloat(this.sum1)) - parseFloat(this.sum2);
 
     this.pcc = parseFloat(summery.toFixed(2));
   }
@@ -229,8 +228,8 @@ export class FormAddPage {
     this.tablepalm.savedatelist(this.senumber, this.pcc,txt);
     console.log(this.field_data);
     for (let x of this.field_data) {
-      this.tablepalm.savedatadetail(this.senumber, 'tweight', 'น้ำหนัก', this.tablepalm.getpercent(x.tweight, ''), x.tweight)
-      this.tablepalm.savedatadetail(this.senumber, 'traw', 'ทะลายดิบ', this.tablepalm.getpercent(x.traw, 'traw'), x.traw)
+      this.tablepalm.savedatadetail(this.senumber, 'tweight', 'น้ำหนัก',  this.tablepalm.getpercent(x.tweight, ''), x.tweight)
+      this.tablepalm.savedatadetail(this.senumber, 'traw', 'ทะลายดิบ',    this.tablepalm.getpercent(x.traw, 'traw'), x.traw)
       this.tablepalm.savedatadetail(this.senumber, 'tripe', 'ทะลายกึ่งสุก', this.tablepalm.getpercent(x.tripe, 'tripe'), x.tripe)
       this.tablepalm.savedatadetail(this.senumber, 'tblank', 'ทะลายเปล่า', this.tablepalm.getpercent(x.tblank, 'tblank'), x.tblank)
       this.tablepalm.savedatadetail(this.senumber, 'tincomplete', 'ทะลายไม่สมบูรณ์', this.tablepalm.getpercent(x.tincomplete, 'tincomplete'), x.tincomplete)
@@ -247,7 +246,6 @@ export class FormAddPage {
       console.log("err")
       this.navCtrl.setRoot('HomePage');
     }
-    
 
   }
 

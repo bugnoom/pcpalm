@@ -38,7 +38,7 @@ export class TablepalmProvider {
     let s = percentvalue + "";
     if (s.length < 2) {
 
-      console.log(s, "a");
+   //   console.log(s, "a");
       finds = percentvalue;
       ten = "0";
     } else {
@@ -48,39 +48,39 @@ export class TablepalmProvider {
     }
     let tablepalm = [];
     let val = 0.00;
-    console.log("percent : ", finds + "  " + ten);
+    //console.log("percent : ", finds + "  " + ten);
     switch (typecal) {
       case "traw":
         tablepalm = this.traw_table();
-        val = tablepalm[finds][finds][0][ten]
+        val = parseFloat(tablepalm[finds][finds][0][ten]);
         break;
       case "tripe":
         tablepalm = this.tripe_table();
-        val = tablepalm[finds][finds][0][ten]
+        val = parseFloat(tablepalm[finds][finds][0][ten]);
         break;
       case 'tblank':
         tablepalm = this.tblank_table();
-        val = tablepalm[finds][finds][0][ten]
+        val = parseFloat(tablepalm[finds][finds][0][ten]);
         break;
       case 'tincomplete':
         tablepalm = this.tincomplete_table();
-        val = tablepalm[finds][finds][0][ten]
+        val = parseFloat(tablepalm[finds][finds][0][ten]);
         break;
       case 'tlong':
         tablepalm = this.tlong_table();
-        val = tablepalm[finds][finds][0][ten]
+        val = parseFloat(tablepalm[finds][finds][0][ten]);
         break;
       case 'told':
         tablepalm = this.told_table();
-        val = tablepalm[finds][finds][0][ten]
+        val = parseFloat(tablepalm[finds][finds][0][ten])
         break;
       case 'tdirty':
         tablepalm = this.tdirty_table();
-        val = tablepalm[finds][finds][0][ten]
+        val = parseFloat(tablepalm[finds][finds][0][ten]);
         break;
       case 'tdula':
         tablepalm = this.tdula_table();
-        val = tablepalm[finds][finds][0][ten]
+        val = parseFloat(tablepalm[finds][finds][0][ten])
         break;
       case "twater":
         val = parseInt(percentvalue) / 100;
@@ -88,7 +88,7 @@ export class TablepalmProvider {
     }
     // array ที่ tablepalm[array][ojbec][ที่หลักหน่วย][ที่หลักสิบ]
     // tablepalm[finds][finds][0][ten] 
-    console.log(val);
+   // console.log(val);
 
     return val
 

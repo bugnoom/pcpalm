@@ -3,7 +3,7 @@
 
 https://www.djamware.com/post/59c53a1280aca768e4d2b143/ionic-3-angular-4-and-sqlite-crud-offline-mobile-app  add data offline
 
-#How to install
+# How to install
 This apps run on Ionic framwork you will install ionic framework (<a href="https://ionicframework.com/getting-started">Ionic</a>) 
 
 after install ionic framework download or use git clone the project and run command :
